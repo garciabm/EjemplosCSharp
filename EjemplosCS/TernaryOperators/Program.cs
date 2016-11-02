@@ -18,7 +18,7 @@ namespace TernaryOperators
             //resultado = EjemploTernaryDoble(variableCadena);
 
             Console.WriteLine(resultado);
-            Console.ReadKey();
+           
 
             variableCadena = "Algo";
             resultado = string.Empty;
