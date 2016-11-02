@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TernaryOperators
 {
@@ -10,31 +6,65 @@ namespace TernaryOperators
     {
         static void Main(string[] args)
         {
+            EjemploIf();
+            EjemploTernary();
+            EjemploTernaryDoble();
+            Console.ReadKey();
+        }
+
+        public static void EjemploIf()
+        {
             string variableCadena = null;
             string resultado = string.Empty;
 
-            resultado = EjemploIf(variableCadena);
-            //resultado = EjemploTernary(variableCadena);
-            //resultado = EjemploTernaryDoble(variableCadena);
+            resultado = AsignacionIf(variableCadena);
 
             Console.WriteLine(resultado);
-           
 
             variableCadena = "Algo";
             resultado = string.Empty;
 
-
-            resultado = EjemploIf(variableCadena);
-            //resultado = EjemploTernary(variableCadena);
-            //resultado = EjemploTernaryDoble(variableCadena);
+            resultado = AsignacionIf(variableCadena);
 
             Console.WriteLine(resultado);
-            Console.ReadKey();
-
-
         }
 
-        public static string EjemploIf(string cadena)
+        public static void EjemploTernary()
+        {
+            string variableCadena = null;
+            string resultado = string.Empty;
+
+            resultado = AsignacionTernary(variableCadena);
+
+            Console.WriteLine(resultado);
+
+            variableCadena = "Algo";
+            resultado = string.Empty;
+
+            resultado = AsignacionTernary(variableCadena);
+
+            Console.WriteLine(resultado);
+        }
+
+        public static void EjemploTernaryDoble()
+        {
+            string variableCadena = null;
+            string resultado = string.Empty;
+
+            resultado = AsignacionTernaryDoble(variableCadena);
+
+            Console.WriteLine(resultado);
+
+
+            variableCadena = "Algo";
+            resultado = string.Empty;
+
+            resultado = AsignacionTernaryDoble(variableCadena);
+
+            Console.WriteLine(resultado);
+        }
+
+        public static string AsignacionIf(string cadena)
         {
             string resultado;
             if (cadena == null)
@@ -48,7 +78,7 @@ namespace TernaryOperators
             return resultado;
         }
 
-        public static string EjemploTernary(string cadena)
+        public static string AsignacionTernary(string cadena)
         {
             string resultado;
             resultado = cadena == null ? "cadena es nula" : cadena;
@@ -56,12 +86,12 @@ namespace TernaryOperators
 
         }
 
-        public static string EjemploTernaryDoble(string cadena)
+        public static string AsignacionTernaryDoble(string cadena)
         {
             string resultado;
             resultado = cadena ?? "cadena es nula";
             return resultado;
         }
-       
+
     }
 }
