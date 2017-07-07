@@ -71,7 +71,7 @@ namespace FlagsEnum
             Color colorMesa = Color.Amarillo;
             Color colorSilla = Color.Azul;
 
-            Virtud virtud = (Virtud)32;//Virtud.Amigable | Virtud.Generoso;
+            Virtud virtud = (Virtud)5;//Virtud.Amigable | Virtud.Generoso;
             Console.WriteLine(virtud);
 
             DiasDeLaSemana diaS = DiasDeLaSemana.Sabado | DiasDeLaSemana.Domingo;
