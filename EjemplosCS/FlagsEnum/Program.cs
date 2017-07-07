@@ -53,6 +53,15 @@ namespace FlagsEnum
         Negro = 3,
         Blanco = 4
     }
+    [Flags]
+    enum Virtud
+    {
+        Amigable = 1,
+        Compasivo = 2,
+        Generoso = 4,
+        Servicial = 8,
+        Responsable = 16
+    }
 
     class Program
     {
@@ -62,7 +71,15 @@ namespace FlagsEnum
             Color colorMesa = Color.Amarillo;
             Color colorSilla = Color.Azul;
 
+            Virtud virtud = (Virtud)32;//Virtud.Amigable | Virtud.Generoso;
+            Console.WriteLine(virtud);
 
+            DiasDeLaSemana diaS = DiasDeLaSemana.Sabado | DiasDeLaSemana.Domingo;
+
+            Permiso perm = Permiso.Escritura | Permiso.Lectura;
+            perm = perm & ~Permiso.Escritura;
+            //perm = perm ^ Permiso.Escritura;
+            //perm = perm ^ Permiso.Escritura;
 
             //bool esI = DiasDeLaSemana.Lunes == DiasDeLaSemana.Algo;
 
