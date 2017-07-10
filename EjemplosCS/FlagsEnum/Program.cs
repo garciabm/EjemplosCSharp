@@ -1,116 +1,86 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-/// <summary>
-/// En proceso
-/// </summary>
-namespace FlagsEnum
+﻿namespace FlagsEnum
 {
-    [Flags]
-    public enum Nivel 
-    {
-        Usuario = 1,
-        Gerente = 2,
-        //Administrador = Gerente << 1
-        Administrador = 4
-    }
-
-    [Flags]
-    enum Permiso
-    {
-        Lectura = 1,
-        Escritura = 2,
-        Modificar = 4,
-        Borrar = 8,
-        Crear = 16
-    }
-
-    [Flags]
-    public enum DiasDeLaSemana //: long
-    {
-        Lunes = 1 << 0,
-        Martes = 1 << 1,
-        Miercoles = 1 << 2,
-        Jueves = 1 << 3,
-        Viernes = 1 << 4,
-        Sabado = 1 << 5,
-        Domingo = 1 << 6,
-        //Algo = ((long)1) <<(63),
-        //Algo2 = 1 << 34,
-        EntreSemana = Lunes | Martes | Miercoles | Jueves | Viernes,
-        FinDeSemana = Sabado | Domingo
-        
-
-    }
-
-    enum Color
-    {
-        Azul = 0, 
-        Rojo = 1,
-        Amarillo = 2,
-        Negro = 3,
-        Blanco = 4
-    }
-    [Flags]
-    enum Virtud
-    {
-        Amigable = 1,
-        Compasivo = 2,
-        Generoso = 4,
-        Servicial = 8,
-        Responsable = 16
-    }
+    using System;
 
     class Program
     {
-        /// <summary>
-        /// Ejemplo en proceso
-        /// </summary>
-        /// <param name="args"></param>
         static void Main(string[] args)
         {
 
-            Color colorMesa = Color.Amarillo;
-            Color colorSilla = Color.Azul;
-
-            Virtud virtud = (Virtud)5;//Virtud.Amigable | Virtud.Generoso;
+            //Asignaciones
+            #region Asignaciones
+            Virtud virtud = Virtud.Amigable | Virtud.Generoso;
             Console.WriteLine(virtud);
 
-            DiasDeLaSemana diaS = DiasDeLaSemana.Sabado | DiasDeLaSemana.Domingo;
+            virtud = (Virtud)5; //Virtud.Amigable | Virtud.Generoso
+            Console.WriteLine(virtud);
+            #endregion
 
-            Permiso perm = Permiso.Escritura | Permiso.Lectura;
-            perm = perm & ~Permiso.Escritura;
-            //perm = perm ^ Permiso.Escritura;
-            //perm = perm ^ Permiso.Escritura;
+            //Comprobaciones
+            #region Comprobaciones
+            bool tieneBandera = (virtud & Virtud.Generoso) == Virtud.Generoso;
+            Console.WriteLine(tieneBandera);
+            //Mensaje en consola "True"
 
-            //bool esI = DiasDeLaSemana.Lunes == DiasDeLaSemana.Algo;
+            tieneBandera = (virtud & Virtud.Servicial) == Virtud.Servicial;
+            Console.WriteLine(tieneBandera);
+            //Mensaje en consola "False"
 
-            byte valor = (byte)Nivel.Usuario;
-            byte valor1 = (byte)Nivel.Gerente;
-            //byte valor2 = (byte)Nivel.Administrador;
+            tieneBandera = virtud.HasFlag(Virtud.Generoso);
+            Console.WriteLine(tieneBandera);
+            //Mensaje en consola "True"
 
-            DiasDeLaSemana dia = DiasDeLaSemana.Sabado;
+            tieneBandera = virtud.HasFlag(Virtud.Servicial);
+            Console.WriteLine(tieneBandera);
+            //Mensaje en consola "False"
+            #endregion
 
-            bool esFinDeSemana = DiasDeLaSemana.FinDeSemana.HasFlag(dia);
+            //Toggle con XOR
+            #region Toggle con XOR
+            virtud = Virtud.Responsable | Virtud.Servicial | Virtud.Generoso;
+            Console.WriteLine(virtud);
+            //Mensaje en consola "Generoso, Servicial, Responsable"
 
-            bool esFinDeSemana2 = (dia & DiasDeLaSemana.FinDeSemana) == dia;
+            virtud = virtud ^ Virtud.Servicial;
+            Console.WriteLine(virtud);
+            //Mensaje en consola: "Generoso, Responsable"
 
-            DiasDeLaSemana diaEntre = DiasDeLaSemana.Lunes | DiasDeLaSemana.Miercoles | DiasDeLaSemana.Sabado;
+            virtud = virtud ^ Virtud.Servicial;
+            Console.WriteLine(virtud);
+            //Mensaje en consola "Generoso, Servicial, Responsable"
+            #endregion
 
-            bool esEntreSemana = DiasDeLaSemana.EntreSemana.HasFlag(diaEntre);
+            //Complemento bit a bit
+            #region Complemento bit a bit
+            virtud = virtud & ~Virtud.Responsable;
+            Console.WriteLine(virtud);
+            //Mensaje en consola "Generoso, Servicial"
+            #endregion
 
-            bool esEntreSemana2 = (diaEntre & DiasDeLaSemana.EntreSemana) == diaEntre;
+            //Agrupaciones
+            #region Agrupaciones
+            DiaDeLaSemana dia = DiaDeLaSemana.Sabado;
 
+            bool esFinDeSemana = DiaDeLaSemana.FinDeSemana.HasFlag(dia);
 
+            DiaDeLaSemana dias = DiaDeLaSemana.Lunes | DiaDeLaSemana.Miercoles | DiaDeLaSemana.Jueves;
+            bool esEntreSemana = DiaDeLaSemana.EntreSemana.HasFlag(dias);
+            Console.WriteLine(esEntreSemana);
+            //Mensaje en consola "True"
 
-            Nivel prueba = Nivel.Gerente | Nivel.Usuario;
+            dias = DiaDeLaSemana.Lunes | DiaDeLaSemana.Miercoles | DiaDeLaSemana.Sabado;
+            esEntreSemana = DiaDeLaSemana.EntreSemana.HasFlag(dias);
+            Console.WriteLine(esEntreSemana);
+            //Mensaje en consola "False"
+            #endregion
 
-            bool EsAdministrador = prueba >= Nivel.Administrador;
-
-            bool EsGerente = (prueba & Nivel.Gerente) == Nivel.Gerente;
-
+            //Sin y con atributo Flags
+            #region Sin y con atributo Flags
+            Console.WriteLine(EnumSinAtributo.ValorX | EnumSinAtributo.ValorY);
+            //Mensaje en consola "3"
+            Console.WriteLine(EnumConAtributo.ValorX | EnumConAtributo.ValorY);
+            //Mensaje en consola "ValorX, ValorY"
+            #endregion
         }
     }
 }
