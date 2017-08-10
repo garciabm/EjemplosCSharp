@@ -6,6 +6,7 @@ namespace TernaryOperators
     {
         static void Main(string[] args)
         {
+            //
             //Debugear con F11 para entrar a los métodos
             //Estos operadores ternarios solamente son para asignaciones de valores mas no para crear lógica dentro del operador
             EjemploIf();
