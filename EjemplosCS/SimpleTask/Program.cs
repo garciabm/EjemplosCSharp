@@ -18,9 +18,29 @@ namespace SimpleTask
             productos.Add(new Producto { TiempoElaboracion = TimeSpan.FromSeconds(3), Nombre = "HotDog", Opcion = 2 });
         }
 
-        static void Main(string[] args)
+        static void EjemploSincrono()
         {
-            DefineMenu();
+
+            bool activo = true;
+            while (activo)
+            {
+                Console.WriteLine("¿Que desea Ordenar?");
+                string opcion = Console.ReadLine();
+                if (opcion == "c")
+                {
+                    activo = false;
+                    Console.WriteLine("Esperando todas las ordenes");
+                    Console.WriteLine("Hasta Luego");
+                }
+                else
+                {
+                    Ejecuta(Convert.ToInt32(opcion));
+                }
+            }
+        }
+
+        static void EjemploAsincrono()
+        {
             bool activo = true;
             List<Task> tasks = new List<Task>();
             while (activo)
@@ -41,6 +61,14 @@ namespace SimpleTask
                     //Ejecuta(Convert.ToInt32(opcion));
                 }
             }
+        }
+
+        static void Main(string[] args)
+        {
+            DefineMenu();
+            EjemploAsincrono();
+            EjemploSincrono();
+
         }
 
         public static void Ejecuta(int valor)
