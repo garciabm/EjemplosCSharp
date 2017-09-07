@@ -11,11 +11,21 @@ namespace SimpleTask
     {
         static List<Producto> productos = new List<Producto>();
         static int orden = 1; 
+        static int renglon = 0;
 
         static void DefineMenu()
         {
             productos.Add(new Producto { TiempoElaboracion = TimeSpan.FromSeconds(7), Nombre = "Hamburguesa", Opcion = 1 });
             productos.Add(new Producto { TiempoElaboracion = TimeSpan.FromSeconds(3), Nombre = "HotDog", Opcion = 2 });
+        }
+
+
+        static void Main(string[] args)
+        {
+            DefineMenu();
+            EjemploAsincrono();
+            //EjemploSincrono();
+
         }
 
         static void EjemploSincrono()
@@ -63,13 +73,6 @@ namespace SimpleTask
             }
         }
 
-        static void Main(string[] args)
-        {
-            DefineMenu();
-            EjemploAsincrono();
-            EjemploSincrono();
-
-        }
 
         public static void Ejecuta(int valor)
         {
@@ -78,8 +81,15 @@ namespace SimpleTask
             {
                 int ordenAsignada = orden;
                 orden++;
+                int left = Console.CursorLeft;
+                int top = Console.CursorTop;
+
+                Console.SetCursorPosition(30, renglon);
+                renglon++;
                 Console.WriteLine(string.Format("Preparando {0} orden {1}", producto.Nombre, ordenAsignada));
                 Thread.Sleep(producto.TiempoElaboracion);
+                Console.SetCursorPosition(30, renglon);
+                renglon++;
                 Console.WriteLine(string.Format("Orden {0} lista, sale {1}",ordenAsignada, producto.Nombre));
                 Console.WriteLine();
             }
